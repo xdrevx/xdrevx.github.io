@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DrevNET Game Launcher</title>
+    <!-- Add the Dropbox link to the favicon -->
+    <link rel="icon" type="image/png" href="https://www.dropbox.com/scl/fi/r7nfncvs0mrjbxo8xe172/drevilmcpfp.png?rlkey=eavjz7iz9xeeytr6zq8m5hqb8&dl=0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-height: 100vh;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        header {
+            background-color: #333;
+            padding: 20px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 36px;
+            margin: 0;
+        }
+
+        header p {
+            font-size: 20px;
+        }
+
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .button {
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 24px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s, color 0.3s;
+            margin: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .button:active {
+            transform: scale(1.05);
+        }
+
+        .button:hover {
+            transform: scale(1.05);
+        }
+
+        .button-windows {
+            background-color: #0078D6;
+            color: #ffffff;
+        }
+
+        .button-mac {
+            background-color: #333;
+            color: #ffffff;
+        }
+
+        .message {
+            display: none;
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+
+        .icon {
+            font-size: 24px;
+            margin-left: 10px;
+        }
+
+        footer {
+            background-color: #333;
+            padding: 10px;
+            width: 100%;
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>DrevNET</h1>
+        <p>The best game launcher.</p>
+    </header>
+
+    <main>
+        <a class="button button-windows" href="https://dl.dropboxusercontent.com/scl/fi/76u7ysnz4c3mjqjh17ry1/DrevNET.zip?rlkey=y8acl7pg7clz8i7srn12gglg8&dl=0" download onclick="showMessage('Download started for Windows!', event)">
+            <span style="text-decoration: none;">Download for Windows</span><span class="icon">&#x1F4BB;</span>
+        </a>
+        <button class="button button-mac" onclick="showMessage('Coming soon for Mac!')">
+            Download for Mac<span class="icon">&#x1F4BB;</span>
+        </button>
+        <div id="message" class="message"></div>
+    </main>
+
+    <footer>
+        &copy; 2023 Drev and DrevilYT
+    </footer>
+
+    <script>
+        function showMessage(text, event) {
+            const messageDiv = document.getElementById("message");
+            messageDiv.textContent = text;
+            messageDiv.style.display = "block";
+            setTimeout(() => {
+                messageDiv.style.display = "none";
+            }, 3000);
+            event.stopPropagation();
+        }
+    </script>
+</body>
+</html>
