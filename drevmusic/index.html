@@ -145,9 +145,9 @@
   <script>
     function checkLicenseKey() {
       const enteredKey = document.getElementById('licenseKeyInput').value;
-      const correctKey = 'DrevMusic-1';
+      const validKeys = ['DrevMusic-1', 'DrevMusic-2', 'Drev', 'Drevil', 'DrevilYT', 'YungGravy', '22francc']; // Add more keys as needed
 
-      if (enteredKey === correctKey) {
+      if (validKeys.includes(enteredKey)) {
         document.getElementById('passwordScreen').style.display = 'none';
       } else {
         alert('Invalid license key. Please try again.');
