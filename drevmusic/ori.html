@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DrevMusic Revamped</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      margin: 20px;
+      text-align: center;
+    }
+
+    h1, h2 {
+      color: #3498db;
+    }
+
+    p {
+      margin-bottom: 20px;
+    }
+
+    .icon {
+      width: 80px; /* Adjust the size as needed */
+      height: 80px;
+      border-radius: 50%; /* Make it rounded */
+      margin: 20px auto; /* Center the icon */
+      overflow: hidden;
+    }
+
+    .icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Maintain aspect ratio while covering the container */
+      border-radius: 50%; /* Apply border-radius to the image */
+    }
+
+    div {
+      margin-top: 20px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    audio {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .watermark {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.5);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .watermark:hover {
+      color: rgba(0, 0, 0, 0.8);
+    }
+
+    .password-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: rgba(255, 255, 255, 0.9);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1000;
+    }
+
+    .password-form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="password-screen" id="passwordScreen">
+    <div class="password-form">
+      <p>Enter your license key:</p>
+      <input type="password" id="licenseKeyInput">
+      <button onclick="checkLicenseKey()">Submit</button>
+    </div>
+  </div>
+
+  <div class="icon">
+    <img src="https://drev.uk.to/assets/images/image01.jpg" alt="Icon"> <!-- Replace with your icon link -->
+  </div>
+
+  <h1>DrevMusic Revamped</h1>
+
+  <p>Welcome to the newly revamped DrevilMusic website! Now known as DrevMusic. Explore Drev's latest and favourite tunes and enjoy a fresh musical experience.</p>
+
+  <div>
+    <h2>dva - 22francc</h2>
+
+    <audio controls>
+      <source src="https://drev.uk.to/drevmusic/dva.mp3" type="audio/mp3">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+
+  <div>
+    <h2>o2 - 22francc</h2>
+
+    <audio controls>
+      <source src="https://drev.uk.to/drevmusic/o2.mp3" type="audio/mp3">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+
+  <div>
+    <h2>daphne - 22francc</h2>
+
+    <audio controls>
+      <source src="https://drev.uk.to/drevmusic/daphne.mp3" type="audio/mp3">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+
+  <div>
+    <h2>Drev's Personal Favourite (click for a surprise)</h2>
+
+    <audio controls>
+      <source src="https://drev.uk.to/drevmusic/Betty%20(Get%20Money).mp3" type="audio/mp3">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+
+  <a href="https://drev.uk.to" class="watermark">Hosted by Drevil</a>
+
+  <script>
+    function checkLicenseKey() {
+      const enteredKey = document.getElementById('licenseKeyInput').value;
+      const validKeys = ['DrevMusic-1', 'DrevMusic-2', 'Drev', 'Drevil', 'DrevilYT', 'YungGravy', '22francc']; // Add more keys as needed
+
+      if (validKeys.includes(enteredKey)) {
+        document.getElementById('passwordScreen').style.display = 'none';
+      } else {
+        alert('Invalid license key. Please try again.');
+      }
+    }
+  </script>
+
+  <!-- Add more content as needed -->
+
+</body>
+</html>
