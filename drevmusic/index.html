@@ -63,9 +63,38 @@
     .watermark:hover {
       color: rgba(0, 0, 0, 0.8);
     }
+
+    .password-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: rgba(255, 255, 255, 0.9);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1000;
+    }
+
+    .password-form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
   </style>
 </head>
 <body>
+
+  <div class="password-screen" id="passwordScreen">
+    <div class="password-form">
+      <p>Enter your license key:</p>
+      <input type="password" id="licenseKeyInput">
+      <button onclick="checkLicenseKey()">Submit</button>
+    </div>
+  </div>
 
   <div class="icon">
     <img src="https://drev.uk.to/assets/images/image01.jpg" alt="Icon"> <!-- Replace with your icon link -->
@@ -103,7 +132,7 @@
   </div>
 
   <div>
-    <h2>Drev's Personal Favourite (click for a suprise)</h2>
+    <h2>Drev's Personal Favourite (click for a surprise)</h2>
 
     <audio controls>
       <source src="https://drev.uk.to/drevmusic/Betty%20(Get%20Money).mp3" type="audio/mp3">
@@ -113,8 +142,20 @@
 
   <a href="https://drev.uk.to" class="watermark">Hosted by Drevil</a>
 
+  <script>
+    function checkLicenseKey() {
+      const enteredKey = document.getElementById('licenseKeyInput').value;
+      const correctKey = 'DrevMusic-1';
+
+      if (enteredKey === correctKey) {
+        document.getElementById('passwordScreen').style.display = 'none';
+      } else {
+        alert('Invalid license key. Please try again.');
+      }
+    }
+  </script>
+
   <!-- Add more content as needed -->
 
 </body>
 </html>
-
