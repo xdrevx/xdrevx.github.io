@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DrevMusic for DrevOS</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: url('https://drev.evils.in/DrevOS/themes/background/red_drevos.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+      margin: 20px;
+      text-align: center;
+    }
+
+    h1, h2 {
+      color: #3498db;
+    }
+
+    p {
+      margin-bottom: 20px;
+    }
+
+    .icon {
+      width: 80px; /* Adjust the size as needed */
+      height: 80px;
+      border-radius: 50%; /* Make it rounded */
+      margin: 20px auto; /* Center the icon */
+      overflow: hidden;
+    }
+
+    .icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Maintain aspect ratio while covering the container */
+      border-radius: 50%; /* Apply border-radius to the image */
+    }
+
+    .content {
+      display: none; /* Initially hide content */
+    }
+
+    .password-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: rgba(255, 255, 255, 0.9); /* Light background for password screen */
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1000;
+    }
+
+    .password-form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 300px; /* Adjust the width as needed */
+      text-align: center;
+      color: #333; /* Text color for the form */
+    }
+
+    .password-form p {
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .password-form input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .password-form button {
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .password-form button:hover {
+      background-color: #2980b9;
+    }
+
+    <style>
+  body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    margin: 20px;
+    text-align: center;
+    background: url('https://drev.evils.in/DrevOS/themes/background/red_drevos.png') no-repeat center center fixed;
+    background-size: cover;
+  }
+
+  h1, h2 {
+    color: #fff; /* White text for better readability */
+  }
+
+  p {
+    margin-bottom: 20px;
+    color: #eee; /* Light gray text */
+  }
+
+  .icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 20px auto;
+    overflow: hidden;
+  }
+
+  .icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .content {
+    display: none;
+  }
+
+  .password-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.9);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+  }
+
+  .password-form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+  }
+
+  .password-form p {
+    color: #555;
+    margin-bottom: 10px;
+  }
+
+  .password-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .password-form button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .password-form button:hover {
+    background-color: #2980b9;
+  }
+
+  </style>
+</head>
+<body>
+
+  <div class="password-screen" id="passwordScreen">
+    <div class="password-form">
+      <h2 style="color: #3498db;">DrevOS User:</h2>
+      <input type="password" id="licenseKeyInput" placeholder="Type user to continue.">
+      <button onclick="checkLicenseKey()">Submit</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="icon">
+      <img src="https://drev.uk.to/assets/images/image01.jpg" alt="Icon"> <!-- Replace with your icon link -->
+    </div>
+
+    <h1>DrevMusic for DrevOS</h1>
+
+    <p>Welcome to the newly revamped DrevilMusic for DrevOS app! Now known as DrevMusic for DrevOS. Explore Drev's latest and favourite tunes and enjoy a fresh musical experience for free as a perk of using DrevOS.</p>
+
+    <div>
+      <h2>dva - 22francc</h2>
+
+      <audio controls>
+        <source src="https://drev.uk.to/drevmusic/dva.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+
+    <div>
+      <h2>o2 - 22francc</h2>
+
+      <audio controls>
+        <source src="https://drev.uk.to/drevmusic/o2.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+
+    <div>
+      <h2>daphne - 22francc</h2>
+
+      <audio controls>
+        <source src="https://drev.uk.to/drevmusic/daphne.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+
+    <div>
+        <h2>Want Me - Cl4pers</h2>
+  
+        <audio controls>
+          <source src="https://drev.uk.to/drevmusic/want-me.mp3" type="audio/mp3">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+
+      <div>
+        <h2>Oliver Twist - ArrDee</h2>
+  
+        <audio controls>
+          <source src="https://drev.uk.to/drevmusic/olivertwist.mp3" type="audio/mp3">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+
+    <div>
+      <h2>Drev's Personal Favourite (click for a surprise)</h2>
+
+      <audio controls>
+        <source src="https://drev.uk.to/drevmusic/Betty%20(Get%20Money).mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+
+    <div>
+        <h2>Drev's Actual Favourite (fr this time)</h2>
+  
+        <audio controls>
+          <source src="https://drev.uk.to/drevmusic/rickroll.MP3" type="audio/mp3">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+
+    <a href="https://github.com/drevilyt/DrevOS" class="watermark">Licensed and verified by DrevOS</a>
+  </div>
+
+  <script>
+    function checkLicenseKey() {
+      const enteredKey = document.getElementById('licenseKeyInput').value;
+      const validKeys = ['user', 'drevos', 'DrevOS']; // Add more keys as needed
+
+      if (validKeys.includes(enteredKey)) {
+        document.getElementById('passwordScreen').style.display = 'none';
+        document.querySelector('.content').style.display = 'block'; // Display content
+      } else {
+        alert('License verified. Type user to continue.');
+      }
+    }
+  </script>
+
+  <!-- Add more content as needed -->
+
+</body>
+</html>
