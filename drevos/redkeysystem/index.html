@@ -55,6 +55,13 @@
       margin-top: 10px;
     }
 
+    #error-message {
+      display: none;
+      color: #FF0000;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -74,6 +81,7 @@
     <br>
     <button onclick="checkKey()">Submit</button>
     <p id="verification-message">Key verified! Redirecting...</p>
+    <p id="error-message">Invalid key. Please try again.</p>
   </div>
 
   <script>
@@ -88,7 +96,10 @@
           window.location.href = 'https://drev.uk.to/drevos/2/#theme-dev-osred';
         }, 2000); // Redirect after 2 seconds (adjust as needed)
       } else {
-        alert('Invalid key. Please try again.');
+        document.getElementById('error-message').style.display = 'block';
+        setTimeout(function () {
+          document.getElementById('error-message').style.display = 'none';
+        }, 2000); // Hide error message after 3 seconds (adjust as needed)
       }
     }
   </script>
