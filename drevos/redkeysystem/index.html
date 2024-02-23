@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DrevOS Red Activation</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+
+    input {
+      padding: 10px;
+      margin: 10px 0;
+      width: 200px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #verification-message {
+      display: none;
+      color: #008000;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h2>Activation</h2>
+    <label for="key">Enter your DrevOS Red key:</label>
+    <br>
+    <input type="password" id="key" placeholder="Key">
+    <br>
+    <button onclick="checkKey()">Submit</button>
+    <p id="verification-message">Key verified! Redirecting...</p>
+  </div>
+
+  <script>
+    function checkKey() {
+      var enteredKey = document.getElementById('key').value;
+      // You can set your predefined keys here
+      var validKeys = ['DrevOS-Red', 'drevos-red', 'DrevOS-theme-dev-osred', 'theme-dev-osred'];
+
+      if (validKeys.includes(enteredKey)) {
+        document.getElementById('verification-message').style.display = 'block';
+        setTimeout(function () {
+          window.location.href = 'https://drev.uk.to/drevos/2/#theme-dev-osred';
+        }, 2000); // Redirect after 2 seconds (adjust as needed)
+      } else {
+        alert('Invalid key. Please try again.');
+      }
+    }
+  </script>
+</body>
+</html>
