@@ -22,7 +22,7 @@ timeout /t 1 >nul
 :norefresh
 title Drev's Activation Script
 mode 80, 30
-title Drev's Activation Script (v4)
+title Drev's Activation Script (Update GUI)
 :yes
 echo DDDDD   RRRR    EEEEE   V   V
 echo D    D  R   R   E       V   V
@@ -35,6 +35,10 @@ echo Updating...
 timeout /t 3 >nul
 cd /d &UserProfile%/Desktop
 curl -s -o DWAT.exe "https://drev.evils.in/ActivationScript/v4.1/DWAT.exe"
+cd /d c:\DWAT\
+mkdir Logs
+cd /d c:\DWAT\Logs
+echo Updated from v4.1 to v4.1 (no updates available). >> updatelog.txt
 cls
 echo DDDDD   RRRR    EEEEE   V   V
 echo D    D  R   R   E       V   V
