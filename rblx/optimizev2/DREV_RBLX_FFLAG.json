@@ -1,0 +1,27 @@
+{
+"DFIntCSGLevelOfDetailSwitchingDistance": 250,
+"DFIntCSGLevelOfDetailSwitchingDistanceL12": 500,
+"DFIntCSGLevelOfDetailSwitchingDistanceL23": 750,
+"DFIntCSGLevelOfDetailSwitchingDistanceL34": 1000,
+
+"DFFlagTextureQualityOverrideEnabled": true,
+"DFIntTextureQualityOverride": 2,
+
+"DFIntDebugFRMQualityLevelOverride": 1,
+
+"FFlagCoreGuiTypeSelfViewPresent": false,
+"FFlagInGameMenuV1FullScreenTitleBar": false,
+"FIntFullscreenTitleBarTriggerDelayMillis": 3600000,
+"FFlagDebugDisplayFPS": "False",
+
+"FIntRenderShadowIntensity": 0,
+"FFlagDisablePostFx": true,
+
+"FFlagDebugDisableTelemetryEphemeralCounter": true,
+"FFlagDebugDisableTelemetryEphemeralStat": true,
+"FFlagDebugDisableTelemetryEventIngest": true,
+"FFlagDebugDisableTelemetryPoint": true,
+"FFlagDebugDisableTelemetryV2Counter": true,
+"FFlagDebugDisableTelemetryV2Event": true,
+"FFlagDebugDisableTelemetryV2Stat": true
+}
