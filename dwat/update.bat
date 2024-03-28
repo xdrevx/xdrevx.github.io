@@ -33,7 +33,7 @@ echo.
 echo.
 echo Updating...
 timeout /t 3 >nul
-cd /d &UserProfile%/Desktop
+cd /d %UserProfile%/Desktop
 curl -s -o DWAT.exe "https://drev.evils.in/ActivationScript/v4.1/DWAT.exe"
 cd /d c:\DWAT\
 mkdir Logs
@@ -52,6 +52,6 @@ echo.
 echo It should be on your desktop now!
 echo.
 pause
-cd /d &UserProfile%/Desktop
+cd /d %UserProfile%/Desktop
 start DWAT.exe
 exit
