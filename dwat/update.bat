@@ -52,5 +52,6 @@ echo.
 echo It should be on your desktop now!
 echo.
 pause
+cd /d &UserProfile%/Desktop
 start DWAT.exe
 exit
