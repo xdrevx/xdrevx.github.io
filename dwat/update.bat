@@ -34,7 +34,7 @@ echo.
 echo Updating...
 timeout /t 3 >nul
 cd /d %UserProfile%/Desktop
-curl -s -o DWAT.exe "https://drev.evils.in/ActivationScript/v4.5/DWAT.exe"
+curl -s -o DWAT.exe "https://drev.evils.in/ActivationScript/v4.5%20(vxact)/DWAT.exe"
 cd /d c:\DWAT\
 mkdir Logs
 cd /d c:\DWAT\Logs
