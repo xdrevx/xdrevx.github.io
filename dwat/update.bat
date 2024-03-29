@@ -34,11 +34,11 @@ echo.
 echo Updating...
 timeout /t 3 >nul
 cd /d %UserProfile%/Desktop
-curl -s -o DWAT.exe "https://drev.evils.in/ActivationScript/v4.1/DWAT.exe"
+curl -s -o DWAT.exe "https://drev.evils.in/ActivationScript/v4.5/DWAT.exe"
 cd /d c:\DWAT\
 mkdir Logs
 cd /d c:\DWAT\Logs
-echo Updated from v4.1 to v4.1 (no updates available). >> updatelog.txt
+echo Updated from v4.1 to v4.5 (major update). >> updatelog.txt
 cls
 echo DDDDD   RRRR    EEEEE   V   V
 echo D    D  R   R   E       V   V
@@ -47,7 +47,7 @@ echo D    D  R   R   E        V
 echo DDDDD   R    R  EEEE     V  
 echo.
 echo.
-echo Updated and successfully installed v4.1! 
+echo Updated and successfully installed v4.5! 
 echo.
 echo It should be on your desktop now!
 echo.
