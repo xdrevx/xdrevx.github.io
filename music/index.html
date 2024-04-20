@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music Player</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="music-container">
+    <ul class="music-list">
+        <li data-src="audio1.mp3">
+            <img src="images/logo1.jpg" alt="Track 1 Logo">
+            <div class="track-info">
+                Drillin' in the Streets - Drev
+            </div>
+        </li>
+        <li data-src="audio2.mp3">
+            <img src="images/logo2.jpg" alt="Track 2 Logo">
+            <div class="track-info">
+                Drevil's World - Drev
+            </div>
+        </li>
+        <li data-src="audio3.mp3">
+            <img src="images/logo3.jpg" alt="Track 3 Logo">
+            <div class="track-info">
+                Young King - Drev
+            </div>
+        </li>
+    </ul>
+    <div class="profile-link">
+        <a href="http://your-suno-profile-url.com" target="_blank">Visit My Suno Profile</a>
+    </div>
+    <audio id="audio-player" controls style="display:none;"></audio>
+</div>
+<div class="controls">
+    <button id="prev"><i class="fas fa-step-backward"></i></button>
+    <button id="play"><i class="fas fa-play"></i></button>
+    <button id="next"><i class="fas fa-step-forward"></i></button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
