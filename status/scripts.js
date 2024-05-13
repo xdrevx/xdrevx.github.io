@@ -1,40 +1,20 @@
-<script>
+document.addEventListener('DOMContentLoaded', () => {
     const serverStatusElement = document.getElementById('serverStatus');
-    const uptimeElement = document.getElementById('uptime');
-    const connectionsElement = document.getElementById('connections');
-    const errorsElement = document.getElementById('errors');
     const refreshButton = document.getElementById('refreshButton');
 
-    function getRandomStatus() {
-        // Simulate random server status (50% chance of being online)
-        return Math.random() < 0.5 ? 'Online' : 'Offline';
-    }
-
-    function formatUptime(days) {
-        return days > 1 ? `${days} days` : `${days} day`;
-    }
-
     function updateServerStatus() {
-        const serverStatus = getRandomStatus();
-
         // Simulated server status data
         const serverStatusData = {
-            status: serverStatus,
-            uptimeDays: Math.floor(Math.random() * 30) + 1, // Random uptime between 1 and 30 days
-            connections: serverStatus === 'Online' ? Math.floor(Math.random() * 1000) + 500 : 0, // Simulate connections based on status
-            errors: serverStatus === 'Online' ? Math.floor(Math.random() * 5) : Math.floor(Math.random() * 10) + 5 // Simulate errors based on status
+            status: Math.random() < 0.8 ? 'Online' : 'Offline',
+            uptimeDays: Math.floor(Math.random() * 30) + 1,
+            connections: Math.floor(Math.random() * 1000),
+            errors: Math.floor(Math.random() * 10),
+            performanceData: [30, 50, 20, 80, 60, 45, 75]
         };
 
         // Update server status section
-        serverStatusElement.textContent = `Server ${serverStatus}`;
-        serverStatusElement.classList.toggle('online', serverStatus === 'Online');
-
-        // Update server uptime message
-        uptimeElement.textContent = `Uptime: ${formatUptime(serverStatusData.uptimeDays)}`;
-
-        // Update connections and errors
-        connectionsElement.textContent = `Connections: ${serverStatusData.connections}`;
-        errorsElement.textContent = `Errors: ${serverStatusData.errors}`;
+        serverStatusElement.textContent = `Server ${serverStatusData.status}`;
+        serverStatusElement.classList.toggle('online', serverStatusData.status === 'Online');
 
         // Update performance chart
         const ctx = document.getElementById('performanceChart').getContext('2d');
@@ -45,8 +25,8 @@
                 datasets: [{
                     label: 'Performance',
                     data: serverStatusData.performanceData,
-                    borderColor: serverStatus === 'Online' ? '#5aff5a' : '#ff3d3d',
-                    backgroundColor: serverStatus === 'Online' ? 'rgba(90, 255, 90, 0.2)' : 'rgba(255, 61, 61, 0.2)',
+                    borderColor: serverStatusData.status === 'Online' ? '#5aff5a' : '#ff3d3d',
+                    backgroundColor: serverStatusData.status === 'Online' ? 'rgba(90, 255, 90, 0.2)' : 'rgba(255, 61, 61, 0.2)',
                     tension: 0.4
                 }]
             },
@@ -67,4 +47,10 @@
     refreshButton.addEventListener('click', () => {
         updateServerStatus();
     });
-</script>
+
+    // Chart hover effect (optional)
+    const canvas = document.getElementById('performanceChart');
+    canvas.addEventListener('mousemove', (event) => {
+        // Implement hover effect logic here (e.g., tooltip changes, animation)
+    });
+});

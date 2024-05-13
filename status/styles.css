@@ -1,35 +1,64 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f5f5f5;
-}
-
-header {
-    background-color: #333;
+    background-color: #222;
     color: #fff;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
     text-align: center;
-    padding: 20px 0;
 }
 
-.partner-message {
-    font-size: 14px;
-    color: #ddd;
+h1 {
+    font-size: 4em;
+    margin: 0;
+    color: #ff3d3d;
 }
 
-.status, .statistics, .charts {
-    background-color: #fff;
-    padding: 20px;
-    margin: 20px;
+p {
+    font-size: 2em;
+    margin-top: 0.5em;
+    color: #ff3d3d;
+}
+
+canvas {
+    width: 90%;
+    max-width: 800px;
+    height: 400px;
+    margin-top: 40px;
+}
+
+.message {
+    font-size: 1.5em;
+    margin-top: 20px;
+    color: #888;
+}
+
+button {
+    background-color: #ff3d3d;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border: none;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
+button:hover {
+    background-color: #e60000;
+    transform: scale(1.1);
 }
 
-li {
-    margin-bottom: 10px;
+.online {
+    color: #5aff5a;
+}
+
+canvas:hover {
+    cursor: crosshair;
 }

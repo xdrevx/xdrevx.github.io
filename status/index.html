@@ -4,69 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Server Status - Drev</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        body {
-            background-color: #222;
-            color: #fff;
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .container {
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 4em;
-            margin: 0;
-            color: #ff3d3d;
-        }
-
-        p {
-            font-size: 2em;
-            margin-top: 0.5em;
-            color: #ff3d3d;
-        }
-
-        canvas {
-            width: 90%;
-            max-width: 800px;
-            height: 400px; /* Adjust chart height */
-            margin-top: 40px;
-        }
-
-        .message {
-            font-size: 1.5em;
-            margin-top: 20px;
-            color: #888;
-        }
-
-        button {
-            background-color: #ff3d3d;
-            color: #fff;
-            padding: 10px 20px;
-            font-size: 1.2em;
-            border: none;
-            border-radius: 5px;
-            margin-top: 30px;
-            cursor: pointer;
-            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
-        }
-
-        button:hover {
-            background-color: #e60000;
-            transform: scale(1.1);
-        }
-
-        .online {
-            color: #5aff5a;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
@@ -78,55 +16,7 @@
         <p class="message">Hosted by Drev Inc, partnered with GitHub</p>
     </div>
 
-    <script>
-        const serverStatusElement = document.getElementById('serverStatus');
-        const refreshButton = document.getElementById('refreshButton');
-
-        function updateServerStatus() {
-            // Simulated server status data
-            const serverStatusData = {
-                status: 'Online',
-                uptime: '15 days',
-                connections: 1024,
-                errors: 3,
-                performanceData: [30, 50, 20, 80, 60, 45, 75]
-            };
-
-            // Update server status section
-            serverStatusElement.textContent = `Server ${serverStatusData.status}`;
-            serverStatusElement.classList.toggle('online', serverStatusData.status === 'Online');
-
-            // Update performance chart
-            const ctx = document.getElementById('performanceChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                    datasets: [{
-                        label: 'Performance',
-                        data: serverStatusData.performanceData,
-                        borderColor: '#5aff5a',
-                        backgroundColor: 'rgba(90, 255, 90, 0.2)',
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        }
-
-        // Initial update on page load
-        updateServerStatus();
-
-        // Refresh button click event
-        refreshButton.addEventListener('click', () => {
-            updateServerStatus();
-        });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="scripts.js"></script>
 </body>
 </html>
