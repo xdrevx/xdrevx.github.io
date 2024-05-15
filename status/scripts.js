@@ -43,9 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial update on page load
     updateServerStatus();
 
-    // Refresh button click event
+    // Redirect button click event
     refreshButton.addEventListener('click', () => {
-        updateServerStatus();
+        window.location.href = 'https://drev.uk.to/status'; // Replace with your desired URL
     });
 
     // Chart hover effect (optional)
