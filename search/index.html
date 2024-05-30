@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DrevSearch</title>
+    <style>
+        body {
+            background-color: #222;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin: 0;
+            color: #ff3d3d;
+        }
+
+        p {
+            font-size: 1.5em;
+            margin-top: 0.5em;
+            color: #ff3d3d;
+        }
+
+        .box {
+            display: inline-block;
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background-color: #ff3d3d;
+            transform: rotate(45deg);
+            animation: shake 1.5s infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: rotate(45deg) translate(-5px, -5px);
+            }
+            50% {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        #results {
+            margin-top: 20px;
+            width: 80%;
+        }
+
+        .result {
+            border: 1px solid #ced4da;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        a {
+            text-decoration: none;
+            color: #fff;
+            background-color: #ff3d3d;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            display: inline-block;
+            margin-top: 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        a:hover {
+            background-color: #e60000;
+            transform: scale(1.1);
+        }
+
+        .back-button {
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .copyright {
+            margin-top: 20px;
+            font-size: 0.8em;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box"></div>
+        <h1>DrevSearch</h1>
+        <form id="searchForm">
+            <input type="text" id="query" name="query" placeholder="Enter your search term..." required="">
+            <input type="submit" value="Search">
+        </form>
+        <button class="back-button" style="display: none;" onclick="goBack()">Back to Search</button>
+        <div id="results"></div>
+        <div class="copyright">
+            <div class="copyright">
+                © Drev. All rights reserved.
+                <div class="copyright">Some results might be taken from Duckduckgo.</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function goBack() {
+            document.getElementById("searchForm").reset(); // Clear the search input
+            document.getElementById("results").innerHTML = ""; // Clear the search results
+            document.querySelector(".back-button").style.display = "none"; // Hide the back button
+        }
+
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var query = document.getElementById('query').value;
+            var resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+            fetchDuckDuckGoResults(query);
+        });
+
+        function fetchDuckDuckGoResults(query) {
+            var url = `https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json&pretty=1`;
+            fetch(url, { mode: 'cors' })
+                .then(response => response.json())
+                .then(data => {
+                    displayResults(data.RelatedTopics);
+                    document.querySelector(".back-button").style.display = "block"; // Show the back button
+                })
+                .catch(error => console.error('Error fetching DuckDuckGo results:', error));
+        }
+
+        function displayResults(results) {
+            var resultsDiv = document.getElementById('results');
+
+            results.forEach(result => {
+                if (result.FirstURL && result.Text) {
+                    var resultDiv = document.createElement('div');
+                    resultDiv.classList.add('result');
+                    var title = document.createElement('h3');
+                    var link = document.createElement('a');
+                    link.href = result.FirstURL;
+                    link.textContent = result.Text;
+                    link.target = '_blank'; // Open link in a new tab
+                    title.appendChild(link);
+                    resultDiv.appendChild(title);
+                    resultsDiv.appendChild(resultDiv);
+                } else if (result.Topics) {
+                    result.Topics.forEach(subResult => {
+                        if (subResult.FirstURL && subResult.Text) {
+                            var resultDiv = document.createElement('div');
+                            resultDiv.classList.add('result');
+                            var title = document.createElement('h3');
+                            var link = document.createElement('a');
+                            link.href = subResult.FirstURL;
+                            link.textContent = subResult.Text;
+                            link.target = '_blank'; // Open link in a new tab
+                            title.appendChild(link);
+                            resultDiv.appendChild(title);
+                            resultsDiv.appendChild(resultDiv);
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
