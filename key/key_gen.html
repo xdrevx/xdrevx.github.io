@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key Gen - Drev</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #ff0000;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #c30000;
+        }
+
+        p {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Key Generator</h1>
+    <button id="generateKeyBtn">Generate Key</button>
+    <p id="generatedKey"></p>
+    <p>© Drev. All rights reserved.</p>
+
+    <script>
+        document.getElementById("generateKeyBtn").addEventListener("click", function() {
+            var key = generateKey(); // Call the function to generate the key
+            document.getElementById("generatedKey").textContent = "Generated Key: " + key;
+            localStorage.setItem("generatedKey", JSON.stringify({ key: key, timestamp: Date.now() })); // Store the generated key along with timestamp in localStorage
+        });
+
+        function generateKey() {
+            // Simple key generation logic
+            var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var keyLength = 10;
+            var key = "";
+            for (var i = 0; i < keyLength; i++) {
+                key += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return key;
+        }
+    </script>
+</body>
+</html>
