@@ -3,95 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Locked - Drev</title>
+    <title>App Reward - Drev</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #000;
-            color: #fff;
+        /* Basic CSS Reset */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            height: 100vh;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f3f4f6;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
-            color: #ff0000;
-        }
-
-        form {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        label {
-            margin-bottom: 10px;
-        }
-
-        input {
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ff0000;
-            border-radius: 5px;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: #ff0000;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        button:hover {
-            background-color: #c30000;
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 16px;
         }
 
         p {
-            margin-top: 20px;
-            text-align: center;
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 32px;
         }
 
-        .copyright {
-            position: absolute;
-            bottom: 10px;
+        .button-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            padding: 12px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .button.secondary {
+            background-color: #6c757d;
+        }
+
+        .button.secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .button.invite {
+            background-color: #28a745;
+        }
+
+        .button.invite:hover {
+            background-color: #218838;
         }
     </style>
 </head>
 <body>
-    <h1>drev.uk.to</h1>
-    <p>To access the content, please enter the key.</p>
-    <form id="keyForm">
-        <label for="key">Enter Key:</label>
-        <input type="text" id="key" name="key">
-        <button type="submit">Submit</button>
-    </form>
-    <button id="redirectBtn">Get a Key</button>
-    <p class="copyright">© Drev. All rights reserved.</p>
-
-    <script>
-        document.getElementById("keyForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            var key = document.getElementById("key").value;
-            var storedKey = JSON.parse(localStorage.getItem("generatedKey")); // Retrieve the generated key and timestamp from localStorage
-
-            if (storedKey && key === storedKey.key && (Date.now() - storedKey.timestamp) < 60000) { // Check if the entered key matches the generated key and if it's within 1 minute
-                window.location.href = "https://www.example.com/redirect_page"; // Redirect in the same tab
-            } else {
-                alert("Incorrect or expired key. Please try again.");
-            }
-        });
-
-        document.getElementById("redirectBtn").addEventListener("click", function() {
-            window.open("key_gen", "_blank"); // Open the URL in a new tab
-        });
-    </script>
+    <div class="container">
+        <h1>Claim Your Reward</h1>
+        <p>Thank you for downloading our app! Choose an option below to proceed.</p>
+        <div class="button-container">
+            <a href="#claim" class="button">Download Signature File</a>
+            <a href="#learn-more" class="button secondary">Claim Reward</a>
+            <a href="#invite-friends" class="button invite">Invite Friends</a>
+        </div>
+    </div>
 </body>
 </html>
