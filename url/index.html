@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+        }
+        input {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #333;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>URL Shortener</h1>
+    <input type="text" id="urlInput" placeholder="Enter URL to shorten" />
+    <button id="shortenButton">Shorten URL</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        const shortenButton = document.getElementById("shortenButton");
+        const urlInput = document.getElementById("urlInput");
+        const result = document.getElementById("result");
+
+        shortenButton.addEventListener("click", async () => {
+            const longUrl = urlInput.value.trim();
+            if (!longUrl) {
+                result.textContent = "Please enter a valid URL.";
+                return;
+            }
+
+            result.textContent = "Shortening URL...";
+
+            try {
+                // Replace 'YOUR_API_KEY' with your actual Bitly API key
+                const response = await fetch("https://api-ssl.bitly.com/v4/shorten", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer e5f941bc8444c3951c180fb606d3a320716c853f"
+                    },
+                    body: JSON.stringify({ long_url: longUrl })
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to shorten URL");
+                }
+
+                const data = await response.json();
+                result.innerHTML = `Shortened URL: <a href="${data.link}" target="_blank">${data.link}</a>`;
+            } catch (error) {
+                result.textContent = "Error: " + error.message;
+            }
+        });
+    </script>
+</body>
+</html>
