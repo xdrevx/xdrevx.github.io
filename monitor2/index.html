@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Status - Drev</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="box"></div>
+        <h1>Server Status</h1>
+        <p id="serverStatus" class="status">Loading...</p>
+        <p id="uptime">Uptime: -- days</p>
+        <p id="errorCount">Errors: --</p>
+        <canvas id="performanceChart"></canvas>
+        <button id="refreshButton">Refresh Status</button>
+        <p class="message">© Drev. All rights reserved.</p>
+        <p class="message">© 0x.no. All rights reserved.</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const serverStatusElement = document.getElementById('serverStatus');
+            const refreshButton = document.getElementById('refreshButton');
+
+            let chartInstance;
+
+            function updateServerStatus() {
+                // Simulated server status data
+                const serverStatusData = {
+                    status: Math.random() < 0.8 ? 'Online' : 'Offline',
+                    uptimeDays: Math.floor(Math.random() * 30) + 1,
+                    connections: Math.floor(Math.random() * 1000),
+                    errors: Math.floor(Math.random() * 10),
+                    performanceData: [30, 50, 20, 80, 60, 45, 75]
+                };
+
+                // Update server status section
+                serverStatusElement.textContent = `Server ${serverStatusData.status}`;
+                serverStatusElement.classList.toggle('online', serverStatusData.status === 'Online');
+                serverStatusElement.classList.toggle('offline', serverStatusData.status === 'Offline');
+
+                // Update additional data
+                document.getElementById('uptime').textContent = `Uptime: ${serverStatusData.uptimeDays} days`;
+                document.getElementById('errorCount').textContent = `Errors: ${serverStatusData.errors}`;
+
+                // Update performance chart
+                if (chartInstance) {
+                    chartInstance.destroy();  // Destroy the previous chart instance
+                }
+
+                chartInstance = new Chart(document.getElementById('performanceChart').getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        datasets: [{
+                            label: 'Performance',
+                            data: serverStatusData.performanceData,
+                            borderColor: serverStatusData.status === 'Online' ? '#5aff5a' : '#ff3d3d',
+                            backgroundColor: serverStatusData.status === 'Online' ? 'rgba(90, 255, 90, 0.2)' : 'rgba(255, 61, 61, 0.2)',
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Initial update on page load
+            updateServerStatus();
+
+            // Refresh status
+            refreshButton.addEventListener('click', updateServerStatus);
+        });
+    </script>
+</body>
+</html>
