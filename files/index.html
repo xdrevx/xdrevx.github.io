@@ -1,28 +1,89 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>File Viewer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f4f4f9;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #6200ea;
+      color: white;
+      font-size: 20px;
+    }
+    button {
+      margin-right: 15px;
+      padding: 5px 10px;
+      font-size: 16px;
+      background-color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ddd;
+    }
+    ul {
+      list-style: none;
+      padding: 20px;
+      margin: 0;
+    }
+    li {
+      padding: 10px 15px;
+      border-bottom: 1px solid #ddd;
+    }
+    li a {
+      text-decoration: none;
+      color: #6200ea;
+      font-size: 16px;
+    }
+    li a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <h1>File Viewer</h1>
+  <header>
+    <button id="back-btn" onclick="goBack()" disabled>← Back</button>
+    <span id="current-path">Home</span>
+  </header>
   <ul id="file-list"></ul>
 
   <script>
     // Replace 'username' and 'repo' with your details
-    const username = 'xdrevx';
-    const repo = 'xdrevx.github.io';
+    const username = 'xdrevx'; // Replace with your GitHub username
+    const repo = 'xdrevx.github.io'; // Replace with your repository name
     const branch = 'main'; // Change if using a different branch
 
-    // Base URL for GitHub API
     const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/`;
     const rawUrl = `https://raw.githubusercontent.com/${username}/${repo}/${branch}/`;
 
+    // Tracks navigation history for "Back" functionality
+    let historyStack = [];
+    let currentPath = '';
+
+    // Load files dynamically based on the path
     async function loadFiles(path = '') {
       const response = await fetch(apiUrl + path);
       const files = await response.json();
 
       const fileList = document.getElementById('file-list');
       fileList.innerHTML = ''; // Clear previous entries
+
+      // Update header path
+      document.getElementById('current-path').textContent = path || 'Home';
+
+      // Handle Back button state
+      document.getElementById('back-btn').disabled = historyStack.length === 0;
 
       files.forEach(file => {
         const li = document.createElement('li');
@@ -32,7 +93,11 @@
         if (file.type === 'dir') {
           // If it's a folder, navigate inside it
           link.href = '#';
-          link.onclick = () => loadFiles(file.path);
+          link.onclick = () => {
+            historyStack.push(currentPath);
+            currentPath = file.path;
+            loadFiles(file.path);
+          };
         } else if (file.type === 'file') {
           // If it's a file, create a direct link to the raw file
           link.href = rawUrl + file.path;
@@ -44,7 +109,17 @@
       });
     }
 
-    loadFiles(); // Load root directory by default
+    // Go back to the previous folder
+    function goBack() {
+      if (historyStack.length > 0) {
+        const previousPath = historyStack.pop();
+        currentPath = previousPath;
+        loadFiles(previousPath);
+      }
+    }
+
+    // Load the root directory by default
+    loadFiles();
   </script>
 </body>
 </html>
