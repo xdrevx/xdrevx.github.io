@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>File Viewer</title>
+  <style>
+    /* Body Styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f4f4f9;
+    }
+
+    /* Header Styling */
+    header {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      font-size: 20px;
+      color: white;
+      background-size: 300% 300%;
+      animation: rainbow 3s linear infinite; /* Rainbow Animation */
+    }
+
+    @keyframes rainbow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Button Styling */
+    button {
+      margin-right: 15px;
+      padding: 5px 10px;
+      font-size: 16px;
+      background-color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ddd;
+    }
+
+    /* List Styling */
+    ul {
+      list-style: none;
+      padding: 20px;
+      margin: 0;
+    }
+    li {
+      padding: 10px 15px;
+      border-bottom: 1px solid #ddd;
+    }
+    li a {
+      text-decoration: none;
+      color: #6200ea;
+      font-size: 16px;
+    }
+    li a:hover {
+      text-decoration: underline;
+    }
+
+    /* Authentication Popup */
+    #auth-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #auth-box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+    #auth-box input {
+      margin: 10px 0;
+      padding: 10px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    #auth-box button {
+      padding: 10px 20px;
+      background: #6200ea;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <!-- Authentication Popup -->
+  <div id="auth-overlay">
+    <div id="auth-box">
+      <h2>Login</h2>
+      <input type="text" id="username" placeholder="Username" />
+      <input type="password" id="password" placeholder="Password" />
+      <button onclick="authenticate()">Login</button>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <button id="back-btn" onclick="goBack()" disabled>← Back</button>
+    <span id="current-path">Home</span>
+  </header>
+  <ul id="file-list"></ul>
+
+  <script>
+    // Replace 'username' and 'repo' with your details
+    const username = 'xdrevx'; // Replace with your GitHub username
+    const repo = 'xdrevx.github.io'; // Replace with your repository name
+    const branch = 'main'; // Change if using a different branch
+
+    const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/`;
+    const rawUrl = `https://raw.githubusercontent.com/${username}/${repo}/${branch}/`;
+
+    // Navigation variables
+    let historyStack = [];
+    let currentPath = '';
+
+    // Authentication Variables
+    const validUsername = 'admin'; // Replace with your username
+    const validPassword = '123'; // Replace with your password
+
+    // Authentication Function
+    function authenticate() {
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+
+      if (user === validUsername && pass === validPassword) {
+        document.getElementById('auth-overlay').style.display = 'none'; // Hide login popup
+      } else {
+        alert('Invalid username or password!');
+      }
+    }
+
+    // Load files dynamically based on path
+    async function loadFiles(path = '') {
+      const response = await fetch(apiUrl + path);
+      const files = await response.json();
+
+      const fileList = document.getElementById('file-list');
+      fileList.innerHTML = ''; // Clear previous entries
+
+      // Update header path
+      document.getElementById('current-path').textContent = path || 'Home';
+
+      // Handle Back button state
+      document.getElementById('back-btn').disabled = historyStack.length === 0;
+
+      files.forEach(file => {
+        const li = document.createElement('li');
+        const link = document.createElement('a');
+        link.textContent = file.name;
+
+        if (file.type === 'dir') {
+          // If it's a folder, navigate inside it
+          link.href = '#';
+          link.onclick = () => {
+            historyStack.push(currentPath);
+            currentPath = file.path;
+            loadFiles(file.path);
+          };
+        } else if (file.type === 'file') {
+          // If it's a file, create a direct link to the raw file
+          link.href = rawUrl + file.path;
+          link.target = '_blank';
+        }
+
+        li.appendChild(link);
+        fileList.appendChild(li);
+      });
+    }
+
+    // Go back to the previous folder
+    function goBack() {
+      if (historyStack.length > 0) {
+        const previousPath = historyStack.pop();
+        currentPath = previousPath;
+        loadFiles(previousPath);
+      }
+    }
+
+    // Initial Load (only after authentication)
+    function startViewer() {
+      loadFiles();
+    }
+  </script>
+</body>
+</html>
