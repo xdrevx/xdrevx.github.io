@@ -8,30 +8,43 @@
   <ul id="file-list"></ul>
 
   <script>
-    // Replace 'username' and 'repo' with your GitHub details
+    // Replace 'username' and 'repo' with your details
     const username = 'xdrevx';
     const repo = 'xdrevx.github.io';
-    const branch = 'main'; // Change to your branch if it's not 'main'
+    const branch = 'main'; // Change if using a different branch
 
+    // Base URL for GitHub API
     const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/`;
+    const rawUrl = `https://raw.githubusercontent.com/${username}/${repo}/${branch}/`;
 
-    async function loadFiles() {
-      const response = await fetch(apiUrl);
+    async function loadFiles(path = '') {
+      const response = await fetch(apiUrl + path);
       const files = await response.json();
 
       const fileList = document.getElementById('file-list');
+      fileList.innerHTML = ''; // Clear previous entries
+
       files.forEach(file => {
         const li = document.createElement('li');
         const link = document.createElement('a');
-        link.href = file.download_url;
         link.textContent = file.name;
-        link.target = '_blank';
+
+        if (file.type === 'dir') {
+          // If it's a folder, navigate inside it
+          link.href = '#';
+          link.onclick = () => loadFiles(file.path);
+        } else if (file.type === 'file') {
+          // If it's a file, create a direct link to the raw file
+          link.href = rawUrl + file.path;
+          link.target = '_blank';
+        }
+
         li.appendChild(link);
         fileList.appendChild(li);
       });
     }
 
-    loadFiles();
+    loadFiles(); // Load root directory by default
   </script>
 </body>
 </html>
