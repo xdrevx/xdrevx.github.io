@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>File Viewer</title>
+</head>
+<body>
+  <h1>File Viewer</h1>
+  <ul id="file-list"></ul>
+
+  <script>
+    // Replace 'username' and 'repo' with your GitHub details
+    const username = 'xdrevx';
+    const repo = 'xdrevx.github.io';
+    const branch = 'main'; // Change to your branch if it's not 'main'
+
+    const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/`;
+
+    async function loadFiles() {
+      const response = await fetch(apiUrl);
+      const files = await response.json();
+
+      const fileList = document.getElementById('file-list');
+      files.forEach(file => {
+        const li = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = file.download_url;
+        link.textContent = file.name;
+        link.target = '_blank';
+        li.appendChild(link);
+        fileList.appendChild(li);
+      });
+    }
+
+    loadFiles();
+  </script>
+</body>
+</html>
