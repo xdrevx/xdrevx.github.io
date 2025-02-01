@@ -44,6 +44,13 @@ local FEButton1 = FETab:CreateButton({
    end,
 })
 
+local FEButton2 = FETab:CreateButton({
+   Name = "Ultimate Trolling (UTG)",
+   Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/ZhenX21/UTG-V4/main/source"))()
+   end,
+})
+
 local DoorsTab = Window:CreateTab("Doors", "door-closed")
 local DoorsSection1 = DoorsTab:CreateSection("Working Hubs (2025)")
 
