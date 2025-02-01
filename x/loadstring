@@ -86,6 +86,23 @@ local DoorsButton3 = DoorsTab:CreateButton({
    end,
 })
 
+local DaddyTab = Window:CreateTab("Dandy's World", "superscript")
+local DaddySection1 = DaddyTab:CreateSection("Working Hubs (2025)")
+
+local DaddyButton1 = DaddyTab:CreateButton({
+   Name = "Hex Hub",
+   Callback = function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/CdzMwcZ2"))();
+   end,
+})
+
+local DaddyButton2 = DaddyTab:CreateButton({
+   Name = "G0bby Hub",
+   Callback = function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/QQt4pVtu"))()
+   end,
+})
+
 local DrevXTab = Window:CreateTab("DrevX", "superscript")
 local DrevXSection1 = DrevXTab:CreateSection("UI Options")
 
