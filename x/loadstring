@@ -51,6 +51,15 @@ local FEButton2 = FETab:CreateButton({
    end,
 })
 
+local FESection2 = FETab:CreateSection("Items")
+
+local FEButton3 = FETab:CreateButton({
+   Name = "Get Crucifix",
+   Callback = function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/Johnny39871/assets/main/crucifixo'))()
+   end,
+})
+
 local DoorsTab = Window:CreateTab("Doors", "door-closed")
 local DoorsSection1 = DoorsTab:CreateSection("Working Hubs (2025)")
 
@@ -77,12 +86,11 @@ local DoorsButton3 = DoorsTab:CreateButton({
    end,
 })
 
-
 local DrevXTab = Window:CreateTab("DrevX", "superscript")
 local DrevXSection1 = DrevXTab:CreateSection("UI Options")
 
 local DrevXButton1 = DrevXTab:CreateButton({
-   Name = "Destroy GUI",
+   Name = "Kill DrevX",
    Callback = function()
     Rayfield:Destroy()
    end,
