@@ -1,0 +1,82 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "DrevX",
+   Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+   LoadingTitle = "DrevX Loading . . . ",
+   LoadingSubtitle = "by 0x.no",
+   Theme = "Bloom", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+
+   DisableRayfieldPrompts = false,
+   DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "Big Hub"
+   },
+
+   Discord = {
+      Enabled = false, -- Prompt the user to join your Discord server if their executor supports it
+      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+
+   KeySystem = true, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "DrevX",
+      Subtitle = "Verify Purchase (free)",
+      Note = "Get your key at https://drev.0x.no/x", -- Use this to tell the user how to get a key
+      FileName = "XKey", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = false, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"zdrev"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+
+local FETab = Window:CreateTab("FE", "earth")
+local FESection1 = FETab:CreateSection("General")
+
+local FEButton1 = FETab:CreateButton({
+   Name = "Infinite Yield",
+   Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+   end,
+})
+
+local DoorsTab = Window:CreateTab("Doors", "door-closed")
+local DoorsSection1 = DoorsTab:CreateSection("Working Hubs (2025)")
+
+local DoorsButton1 = DoorsTab:CreateButton({
+   Name = "BlackKing Hub",
+   Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/KINGHUB01/BlackKing-obf/main/Doors%20Blackking%20And%20BobHub"))()
+   end,
+})
+
+local DoorsSection2 = DoorsTab:CreateSection("Unverified Hubs by Drev")
+
+local DoorsButton2 = DoorsTab:CreateButton({
+   Name = "Devil 👹 | Doors V1",
+   Callback = function()
+    loadstring(game:HttpGet("https://tiny.one/DrevilDoorsScriptLOL"))()
+   end,
+})
+
+local DoorsButton3 = DoorsTab:CreateButton({
+   Name = "Devil 😈 | Doors V2",
+   Callback = function()
+    loadstring(game:HttpGet("https://tiny.one/DevilDoorsLOL"))()
+   end,
+})
+
+
+local DrevXTab = Window:CreateTab("DrevX", "superscript")
+local DrevXSection1 = DrevXTab:CreateSection("UI Options")
+
+local DrevXButton1 = DrevXTab:CreateButton({
+   Name = "Destroy GUI",
+   Callback = function()
+    Rayfield:Destroy()
+   end,
+})
