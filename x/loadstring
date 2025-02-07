@@ -2,35 +2,31 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
    Name = "DrevX",
-   Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+   Icon = 0,
    LoadingTitle = "DrevX Loading . . . ",
    LoadingSubtitle = "by 0x.no",
-   Theme = "Bloom", -- Check https://docs.sirius.menu/rayfield/configuration/themes
-
-   DisableRayfieldPrompts = false,
-   DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
-
+   Theme = "Bloom",
+   DisableRayfieldPrompts = true,
+   DisableBuildWarnings = true,
    ConfigurationSaving = {
       Enabled = true,
-      FolderName = nil, -- Create a custom folder for your hub/game
+      FolderName = nil,
       FileName = "Big Hub"
    },
-
    Discord = {
-      Enabled = false, -- Prompt the user to join your Discord server if their executor supports it
-      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
-      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+      Enabled = false,
+      Invite = "noinvitelink",
+      RememberJoins = true
    },
-
-   KeySystem = false, -- Set this to true to use our key system
+   KeySystem = false,
    KeySettings = {
       Title = "DrevX",
       Subtitle = "Verify Purchase (free)",
-      Note = "Get your key at https://drev.0x.no/x", -- Use this to tell the user how to get a key
-      FileName = "XKey", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
-      SaveKey = false, -- The user's key will be saved, but if you change the key, they will be unable to use your script
-      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-      Key = {"zdrev"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+      Note = "Get your key at https://drev.0x.no/x",
+      FileName = "XKey",
+      SaveKey = false,
+      GrabKeyFromSite = false,
+      Key = {"zdrev"}
    }
 })
 
@@ -40,31 +36,31 @@ local FESection1 = FETab:CreateSection("General")
 local FEButton1 = FETab:CreateButton({
    Name = "Infinite Yield",
    Callback = function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
-   end,
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+   end
 })
 
 local FEButton2 = FETab:CreateButton({
    Name = "Ultimate Trolling (UTG)",
    Callback = function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/ZhenX21/UTG-V4/main/source"))()
-   end,
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/ZhenX21/UTG-V4/main/source"))()
+   end
 })
 
 local FEButton3 = FETab:CreateButton({
    Name = "MSPaint",
    Callback = function()
-    loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/002c19202c9946e6047b0c6e0ad51f84.lua"))()
-   end,
+      loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/002c19202c9946e6047b0c6e0ad51f84.lua"))()
+   end
 })
 
 local FESection2 = FETab:CreateSection("Items")
 
-local FEButton3 = FETab:CreateButton({
+local FEButton4 = FETab:CreateButton({ -- Renamed to avoid duplicate FEButton3
    Name = "Get Crucifix",
    Callback = function()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/Johnny39871/assets/main/crucifixo'))()
-   end,
+      loadstring(game:HttpGet('https://raw.githubusercontent.com/Johnny39871/assets/main/crucifixo'))()
+   end
 })
 
 local DoorsTab = Window:CreateTab("Doors", "door-closed")
@@ -73,8 +69,8 @@ local DoorsSection1 = DoorsTab:CreateSection("Working Hubs (2025)")
 local DoorsButton1 = DoorsTab:CreateButton({
    Name = "BlackKing Hub",
    Callback = function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/KINGHUB01/BlackKing-obf/main/Doors%20Blackking%20And%20BobHub"))()
-   end,
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/KINGHUB01/BlackKing-obf/main/Doors%20Blackking%20And%20BobHub"))()
+   end
 })
 
 local DoorsSection2 = DoorsTab:CreateSection("Unverified Hubs by Drev")
@@ -82,15 +78,15 @@ local DoorsSection2 = DoorsTab:CreateSection("Unverified Hubs by Drev")
 local DoorsButton2 = DoorsTab:CreateButton({
    Name = "Devil 👹 | Doors V1",
    Callback = function()
-    loadstring(game:HttpGet("https://tiny.one/DrevilDoorsScriptLOL"))()
-   end,
+      loadstring(game:HttpGet("https://tiny.one/DrevilDoorsScriptLOL"))()
+   end
 })
 
 local DoorsButton3 = DoorsTab:CreateButton({
    Name = "Devil 😈 | Doors V2",
    Callback = function()
-    loadstring(game:HttpGet("https://tiny.one/DevilDoorsLOL"))()
-   end,
+      loadstring(game:HttpGet("https://tiny.one/DevilDoorsLOL"))()
+   end
 })
 
 local DaddyTab = Window:CreateTab("Dandy's World", "dog")
@@ -99,15 +95,15 @@ local DaddySection1 = DaddyTab:CreateSection("Working Hubs (2025)")
 local DaddyButton1 = DaddyTab:CreateButton({
    Name = "Hex Hub",
    Callback = function()
-    loadstring(game:HttpGet("https://pastebin.com/raw/CdzMwcZ2"))();
-   end,
+      loadstring(game:HttpGet("https://pastebin.com/raw/CdzMwcZ2"))()
+   end
 })
 
 local DaddyButton2 = DaddyTab:CreateButton({
    Name = "G0bby Hub",
    Callback = function()
-    loadstring(game:HttpGet("https://pastebin.com/raw/QQt4pVtu"))()
-   end,
+      loadstring(game:HttpGet("https://pastebin.com/raw/QQt4pVtu"))()
+   end
 })
 
 local AsylumTab = Window:CreateTab("Item Asylum", "swords")
@@ -116,8 +112,8 @@ local AsylumSection1 = AsylumTab:CreateSection("Working Hubs (2025)")
 local AsylumButton1 = AsylumTab:CreateButton({
    Name = "Forker Hub",
    Callback = function()
-    loadstring(game:HttpGet(('https://pastebin.com/raw/Z4qVL5tM'),true))()
-   end,
+      loadstring(game:HttpGet('https://pastebin.com/raw/Z4qVL5tM'))()
+   end
 })
 
 local DrevBotTab = Window:CreateTab("Drev's Nextbots", "bot")
@@ -126,24 +122,42 @@ local DrevBot1 = DrevBotTab:CreateSection("Working Scripts (as of the Reckoning 
 local DrevBotButton1 = DrevBotTab:CreateButton({
    Name = "Enable Badges GUI",
    Callback = function()
-    local players = game:GetService("Players")
-local localPlayer = players.LocalPlayer
-local gui = localPlayer:WaitForChild("PlayerGui") -- Ensure PlayerGui exists
+      local players = game:GetService("Players")
+      local localPlayer = players.LocalPlayer
+      local gui = localPlayer:FindFirstChild("PlayerGui")
 
-local badgeListGui = gui:WaitForChild("BadgeListGui") -- Ensure BadgeListGui exists
-badgeListGui.Enabled = true -- Enable the GUI
-   end,
+      if gui then
+         local badgeListGui = gui:FindFirstChild("BadgeListGui")
+         if badgeListGui then
+            badgeListGui.Enabled = true
+         else
+            warn("BadgeListGui not found!")
+         end
+      else
+         warn("PlayerGui not found!")
+      end
+   end
+})
 
 local DrevBotButton2 = DrevBotTab:CreateButton({
    Name = "Disable Badges GUI",
    Callback = function()
-    local players = game:GetService("Players")
-local localPlayer = players.LocalPlayer
-local gui = localPlayer:WaitForChild("PlayerGui") -- Ensure PlayerGui exists
+      local players = game:GetService("Players")
+      local localPlayer = players.LocalPlayer
+      local gui = localPlayer:FindFirstChild("PlayerGui")
 
-local badgeListGui = gui:WaitForChild("BadgeListGui") -- Ensure BadgeListGui exists
-badgeListGui.Enabled = false -- Enable the GUI
-   end,
+      if gui then
+         local badgeListGui = gui:FindFirstChild("BadgeListGui")
+         if badgeListGui then
+            badgeListGui.Enabled = false
+         else
+            warn("BadgeListGui not found!")
+         end
+      else
+         warn("PlayerGui not found!")
+      end
+   end
+})
 
 local DrevXTab = Window:CreateTab("DrevX", "superscript")
 local DrevXSection1 = DrevXTab:CreateSection("UI Options")
@@ -151,6 +165,6 @@ local DrevXSection1 = DrevXTab:CreateSection("UI Options")
 local DrevXButton1 = DrevXTab:CreateButton({
    Name = "Kill DrevX",
    Callback = function()
-    Rayfield:Destroy()
-   end,
+      Rayfield:Destroy()
+   end
 })
