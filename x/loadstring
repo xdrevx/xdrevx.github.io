@@ -22,7 +22,7 @@ local Window = Rayfield:CreateWindow({
       RememberJoins = true -- Set this to false to make them join the discord every time they load it up
    },
 
-   KeySystem = true, -- Set this to true to use our key system
+   KeySystem = false, -- Set this to true to use our key system
    KeySettings = {
       Title = "DrevX",
       Subtitle = "Verify Purchase (free)",
@@ -48,6 +48,13 @@ local FEButton2 = FETab:CreateButton({
    Name = "Ultimate Trolling (UTG)",
    Callback = function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/ZhenX21/UTG-V4/main/source"))()
+   end,
+})
+
+local FEButton3 = FETab:CreateButton({
+   Name = "MSPaint",
+   Callback = function()
+    loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/002c19202c9946e6047b0c6e0ad51f84.lua"))()
    end,
 })
 
