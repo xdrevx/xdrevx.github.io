@@ -14,7 +14,7 @@
             align-items: center;
             font-family: Arial, sans-serif;
             overflow: hidden;
-            background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff, #ff0000);
+            background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet, red);
             background-size: 400% 400%;
             animation: gradientAnimation 10s ease infinite;
         }
@@ -31,8 +31,15 @@
 
         h1 {
             color: white;
-            margin-bottom: 20px;
+            margin-bottom: 5px;
             font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
@@ -107,47 +114,46 @@
 <body>
     <div class="container">
         <h1>DrevX</h1>
+        <h2>For Roblox</h2>
         <div class="buttons">
-            <button onclick="showPopup('https://drev.0x.no/x/DrevX.exe')">DrevX Executor (Auto-Updates)</button>
-            <button onclick="showPopup('https://drev.0x.no/x/xlatest.txt')">DrevX Hub Loadstring</button>
+            <button onclick="showPopup('popup1', 'overlay1')">DrevX Executor (Auto-Updates)</button>
+            <button onclick="showPopup('popup2', 'overlay2')">DrevX Hub Loadstring</button>
         </div>
     </div>
 
-    <div class="overlay" id="overlay"></div>
-    <div class="popup" id="popup">
-        <p>DrevX v2 powered by 0x.no.</p>
-		<p>Proceeding means you agree to the Terms of Service</p>
-        <button onclick="proceed()">Continue</button>
-        <button onclick="closePopup()">Cancel</button>
+    <div class="overlay" id="overlay2"></div>
+    <div class="popup" id="popup2">
+        <p>DrevX Hub powered by 0x.no</p>
+        <p>Proceeding means you agree to the Terms of Service</p>
+        <button onclick="proceed('https://drev.0x.no/x/xlatest.txt')">Continue</button>
+        <button onclick="closePopup('popup2', 'overlay2')">Cancel</button>
+    </div>
+
+    <div class="overlay" id="overlay1"></div>
+    <div class="popup" id="popup1">
+        <p>DrevX Executor powered by Xeno</p>
+        <p>Proceeding means you agree to the Terms of Service</p>
+        <p>Standard gives you the new DrevX Boostrapper experience</p>
+        <p>Legacy gives you the old DrevX experience for older or lower end machines</p>
+        <button onclick="proceed('https://drev.0x.no/x/DrevX.exe')">Standard</button>
+        <button onclick="proceed('https://drev.0x.no/x/DrevX.old.exe')">Legacy</button>
+        <button onclick="closePopup('popup1', 'overlay1')">Cancel</button>
     </div>
 
     <script>
-        let linkToOpen = "";
-
-        function showPopup(link) {
-            linkToOpen = link;
-            const popup = document.getElementById('popup');
-            const overlay = document.getElementById('overlay');
-            popup.classList.add('active');
-            overlay.classList.add('active');
-            popup.style.display = 'block';
-            overlay.style.display = 'block';
+        function showPopup(popupId, overlayId) {
+            document.getElementById(popupId).classList.add('active');
+            document.getElementById(overlayId).classList.add('active');
         }
 
-        function closePopup() {
-            const popup = document.getElementById('popup');
-            const overlay = document.getElementById('overlay');
-            popup.classList.remove('active');
-            overlay.classList.remove('active');
-            setTimeout(() => {
-                popup.style.display = 'none';
-                overlay.style.display = 'none';
-            }, 300); // Match transition duration
+        function closePopup(popupId, overlayId) {
+            document.getElementById(popupId).classList.remove('active');
+            document.getElementById(overlayId).classList.remove('active');
         }
 
-        function proceed() {
-            window.open(linkToOpen, "_blank");
-            closePopup();
+        function proceed(link) {
+            window.open(link, "_blank");
+            document.querySelectorAll('.popup.active, .overlay.active').forEach(el => el.classList.remove('active'));
         }
     </script>
 </body>
