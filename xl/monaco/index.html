@@ -1,0 +1,618 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DTB Monaco</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.1/min/vs/loader.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: Segoe UI Variable Display, serif;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            background-color: #0F0F0F;
+            color: #d4d4d4;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            zoom: 1.0;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #0F0F0F #2d2d2d;
+        }
+
+            *::-webkit-scrollbar {
+                width: 8px;
+                height: 8px;
+                background-color: #2d2d2d;
+            }
+
+            *::-webkit-scrollbar-thumb {
+                background-color: #0F0F0F;
+                border-radius: 4px;
+            }
+
+                *::-webkit-scrollbar-thumb:hover {
+                    background-color: #2d2d2d;
+                }
+
+        .tab-bar {
+            background-color: transparent;
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0 6px;
+            gap: 4px;
+            overflow-x: auto;
+        }
+
+        .tab-list {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            overflow-x: auto;
+            justify-content: flex-start;
+            padding-left: 0;
+            margin-left: 0;
+        }
+
+        .tab-item {
+            padding: 6px 14px;
+            cursor: pointer;
+            color: #d4d4d4;
+            background-color: transparent;
+            border-radius: 0px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: Segoe UI Variable Display, serif;
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0.4px;
+            height: 20px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+            .tab-item:hover {
+                background-color: #333;
+            }
+
+            .tab-item.active {
+                background-color: #0F0F0F;
+                color: #fff;
+                box-shadow: inset 0 -2px 0 #3d85ff;
+            }
+
+        .tab-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 4px;
+        }
+
+            .tab-icon img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                background-color: transparent;
+            }
+
+        .tab-title {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-family: Segoe UI Variable Display, serif;
+            font-size: 13px;
+            flex-grow: 1;
+        }
+
+        .add-tab-button {
+            width: 30px;
+            height: 30px;
+            background: transparent;
+            color: #d4d4d4;
+            border: 0px solid ;
+           border-radius: 0px;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+            margin-left: 10px;
+        }
+
+            .add-tab-button:hover {
+                background: #333;
+                border-color: transparent;
+            }
+
+        .close-tab {
+            display: none;
+            color: #888;
+            cursor: pointer;
+            font-size: 14px;
+            transition: color 0.2s ease;
+            margin-left: 8px;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .tab-item:hover .close-tab {
+            display: inline;
+        }
+
+        .close-tab:hover {
+            color: #fff;
+        }
+
+        .editors-container {
+            flex-grow: 1;
+            position: relative;
+        }
+
+        .editor-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            visibility: hidden;
+        }
+
+            .editor-container.active {
+                visibility: visible;
+            }
+
+
+        .popup-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .popup {
+            background-color: transparent;
+            padding: 20px;
+            border-radius: 8px;
+            width: 250px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            -webkit-font-smoothing: antialiased; 
+            -moz-osx-font-smoothing: grayscale; 
+        }
+
+        .popup-header {
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 10px;
+            text-rendering: optimizeLegibility; 
+        }
+
+        #tabNameInput {
+            width: 100%;
+            padding: 4px;
+            margin-bottom: 10px;
+            border: 0px solid ;
+            border-radius: 0px;
+            background-color: transparent;
+            color: white;
+            font-size: 14px;
+            text-rendering: optimizeLegibility; 
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        button {
+            padding: 8px 16px;
+            margin: 5px;
+            border: none;
+            border-radius: 8px; 
+            cursor: pointer;
+            font-size: 14px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility; 
+        }
+
+            button#cancelPopup {
+                background-color: transparent;
+                color: darkred;
+                border: 0.1px solid #1A1A1A;
+            }
+
+            button#createTab {
+                background-color: transparent;
+                color: green;
+                border: 0.1px solid #1A1A1A;
+            }
+
+            button:hover {
+                opacity: 0.9;
+            }
+
+        .hidden {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="tab-bar">
+            <div class="tab-list" id="tab-list"></div>
+            <button class="add-tab-button" onclick="addTab()">+</button>
+        </div>
+        <div class="editors-container" id="editors"></div>
+    </div>
+    <div id="tabNamePopup" class="popup-container hidden">
+        <div class="popup">
+            <div class="popup-header">Name your tab</div>
+            <input type="text" id="tabNameInput" placeholder="Enter tab name..." />
+            <div>
+                <button id="createTab">Create Tab</button>
+                <button id="cancelPopup">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const editors = [];
+        let editorsInitialized = false;
+        let tabCounter = 0;
+        const MAX_TABS = 7;
+
+        require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.1/min/vs' } });
+
+        require(['vs/editor/editor.main'], function () {
+
+            monaco.editor.defineTheme('CustomDark', {
+                base: 'vs-dark',
+                inherit: true,
+                rules: [
+                    [
+                        [
+                            [
+                                { "token": "", "foreground": "#FFFFFF" },
+                                { "token": "variable.language.self", "foreground": "#00FF00", "fontStyle": "bold" },
+                                { "token": "variable.parameter.variadic", "foreground": "#00FF00", "fontStyle": "italic" },
+                                { "token": "variable.parameter.function", "foreground": "#32CD32" },
+                                { "token": "variable.other.constant", "foreground": "#7CFC00", "fontStyle": "bold" },
+                                { "token": "variable.property", "foreground": "#32CD32", "fontStyle": "italic" },
+                                { "token": "variable.object.property", "foreground": "#00FF7F" },
+                                { "token": "keyword", "foreground": "#98FB98", "fontStyle": "bold italic" },
+                                { "token": "keyword.local", "foreground": "#00FF00", "fontStyle": "bold italic" },
+                                { "token": "keyword.operator", "foreground": "#7FFF00" },
+                                { "token": "keyword.operator.type.annotation", "foreground": "#32CD32", "fontStyle": "italic" },
+                                { "token": "keyword.operator.typedef.annotation", "foreground": "#00FA9A", "fontStyle": "italic" },
+                                { "token": "keyword.control.export", "foreground": "#00FF00", "fontStyle": "bold" },
+                                { "token": "operator", "foreground": "#ADFF2F" },
+                                { "token": "operator.type", "foreground": "#00FF00" },
+                                { "token": "operator.special", "foreground": "#98FB98", "fontStyle": "bold" },
+                                { "token": "entity.name.type.alias", "foreground": "#00FF7F", "fontStyle": "italic" },
+                                { "token": "entity.name.function", "foreground": "#00FF00", "fontStyle": "bold" },
+                                { "token": "global", "foreground": "#32CD32", "fontStyle": "bold italic" },
+                                { "token": "storage.type", "foreground": "#7CFC00", "fontStyle": "italic" },
+                                { "token": "comment", "foreground": "#00FF7F", "fontStyle": "italic" },
+                                { "token": "comment.highlight.title", "foreground": "#00FA9A", "fontStyle": "italic" },
+                                { "token": "comment.highlight.name", "foreground": "#00FF00", "fontStyle": "italic" },
+                                { "token": "comment.delimiter.modifier", "foreground": "#ADFF2F", "fontStyle": "italic" },
+                                { "token": "comment.highlight.modifier", "foreground": "#7CFC00", "fontStyle": "italic" },
+                                { "token": "comment.highlight.descriptor", "foreground": "#32CD32", "fontStyle": "italic" },
+                                { "token": "delimiter.longstring", "foreground": "#32CD32", "fontStyle": "italic" },
+                                { "token": "delimiter.bracket", "foreground": "#7FFF00" },
+                                { "token": "delimiter.array", "foreground": "#00FF00", "fontStyle": "italic" },
+                                { "token": "delimiter.parenthesis", "foreground": "#7CFC00" },
+                                { "token": "delimiter", "foreground": "#ADFF2F" },
+                                { "token": "string", "foreground": "#32CD32", "fontStyle": "bold" },
+                                { "token": "longstring", "foreground": "#00FA9A", "fontStyle": "italic" },
+                                { "token": "string.delimeter", "foreground": "#00FF00" },
+                                { "token": "string.escape", "foreground": "#7CFC00", "fontStyle": "italic" },
+                                { "token": "punctuation.separator.arguments", "foreground": "#7FFF00" },
+                                { "token": "punctuation.separator.parameter", "foreground": "#00FF7F", "fontStyle": "italic" },
+                                { "token": "punctuation.separator.table", "foreground": "#32CD32", "fontStyle": "italic" },
+                                { "token": "punctuation.definition.block", "foreground": "#7CFC00", "fontStyle": "italic" },
+                                { "token": "punctuation.definition.parameters", "foreground": "#00FF00" },
+                                { "token": "punctuation.definition.typeparameters", "foreground": "#7FFF00" },
+                                { "token": "constant.language", "foreground": "#ADFF2F" },
+                                { "token": "number", "foreground": "#32CD32", "fontStyle": "bold" },
+                                { "token": "constants", "foreground": "#00FF7F", "fontStyle": "italic" },
+                                { "token": "support.function", "foreground": "#00FF00" },
+                                { "token": "support.function.library", "foreground": "#32CD32" },
+                                { "token": "support.type", "foreground": "#7FFF00", "fontStyle": "italic" },
+                                { "token": "identifier", "foreground": "#4169E1" },
+                                { "token": "variable.other", "foreground": "#00008B" },
+                                { "token": "keyword.control", "foreground": "#ADD8E6" },
+                                { "token": "type", "foreground": "#4169E1", "fontStyle": "italic" },
+                                { "token": "function", "foreground": "#00008B", "fontStyle": "bold" },
+                                { "token": "type.annotation", "foreground": "#ADD8E6", "fontStyle": "italic" },
+
+                            ]
+
+
+                        ]
+                    ]
+                ],
+                colors: {
+                    'editor.background': '#0F0F0F',
+                    'editor.foreground': '#F0F0F0',
+                    'minimap.background': '#0F0F0F'
+
+                }
+            });
+            const luaKeywords = [
+                'local', 'function', 'end', 'if', 'then', 'else', 'elseif', 'while', 'repeat', 'until', 'for', 'do',
+                'return', 'break', 'print', 'loadstring', 'require', 'module', 'nil', 'true', 'false', 'assert', 'error', 'type',
+                'in', 'not', 'and', 'or', 'goto', 'repeat', 'until', 'coroutine', 'yield', 'thread', 'nil', 'self', 'rawget',
+                'rawset', 'next', 'pairs', 'ipairs', 'pcall', 'xpcall', 'tostring', 'tonumber', 'setmetatable', 'getmetatable',
+                'select', 'collectgarbage', 'dofile', 'load', 'loadfile', 'loadstring', 'debug', 'print', 'table', 'math', 'string',
+                'io', 'os', 'package', 'utf8', 'bit32'
+            ];
+
+            const luaFunctions = [
+                'math.abs', 'math.acos', 'math.asin', 'math.atan', 'math.atan2', 'math.ceil', 'math.cos', 'math.cosh', 'math.deg',
+                'math.exp', 'math.floor', 'math.fmod', 'math.huge', 'math.log', 'math.log10', 'math.max', 'math.min', 'math.modf',
+                'math.pi', 'math.pow', 'math.rad', 'math.random', 'math.randomseed', 'math.sin', 'math.sinh', 'math.sqrt', 'math.tan',
+                'math.tanh',
+                'table.concat', 'table.insert', 'table.maxn', 'table.move', 'table.pack', 'table.remove', 'table.sort', 'table.unpack',
+                'string.byte', 'string.char', 'string.dump', 'string.find', 'string.format', 'string.gmatch', 'string.gsub', 'string.len',
+                'string.lower', 'string.match', 'string.pack', 'string.rep', 'string.reverse', 'string.sub', 'string.upper',
+                'io.close', 'io.flush', 'io.input', 'io.lines', 'io.open', 'io.output', 'io.popen', 'io.read', 'io.stderr', 'io.stdin',
+                'io.stdout', 'io.tmpfile', 'io.write',
+                'os.clock', 'os.date', 'os.difftime', 'os.exit', 'os.getenv', 'os.remove', 'os.rename', 'os.setlocale', 'os.time', 'os.tmpname',
+                'debug.debug', 'debug.getfenv', 'debug.getinfo', 'debug.getlocal', 'debug.getmetatable', 'debug.setfenv', 'debug.setlocal',
+                'debug.setmetatable', 'debug.traceback',
+                'package.loaded', 'package.loadlib', 'package.path', 'package.preload', 'package.searchers', 'package.searchpath',
+                'utf8.char', 'utf8.charbyte', 'utf8.codepoint', 'utf8.codes', 'utf8.len', 'utf8.offset',
+                'bit32.arshift', 'bit32.band', 'bit32.bnot', 'bit32.bor', 'bit32.bxor', 'bit32.lshift', 'bit32.rshift', 'bit32.tohex'
+            ];
+
+
+            function getKeywordSuggestions(word) {
+                uggestions
+                return luaKeywords.filter(keyword => keyword.startsWith(word)).map(keyword => ({
+                    label: keyword,
+                    kind: monaco.languages.CompletionItemKind.Keyword,
+                    insertText: keyword,
+                    detail: `Lua keyword: ${keyword}`
+                }));
+            }
+
+
+            function getFunctionSuggestions(word) {
+                return luaFunctions.filter(func => func.startsWith(word)).map(func => ({
+                    label: func,
+                    kind: monaco.languages.CompletionItemKind.Function,
+                    insertText: func + '()',
+                    detail: `Lua function: ${func}`
+                }));
+            }
+
+
+            monaco.languages.registerCompletionItemProvider('lua', {
+                provideCompletionItems: function (model, position) {
+                    const word = model.getWordAtPosition(position);
+                    const suggestions = [];
+
+                    if (word) {
+
+                        suggestions.push(...getKeywordSuggestions(word.word));
+                        suggestions.push(...getFunctionSuggestions(word.word));
+                    }
+
+                    return { suggestions: suggestions };
+                }
+            });
+
+            editorsInitialized = true;
+            loadTabs();
+
+            window.addEventListener('resize', () => {
+                editors.forEach(editor => editor?.layout());
+            });
+        });
+
+        function createEditorContainer(id) {
+            const container = document.createElement('div');
+            container.id = `editor${id}`;
+            container.className = 'editor-container';
+            document.getElementById('editors').appendChild(container);
+            return container;
+        }
+
+        function addTab() {
+            if (!editorsInitialized) return;
+
+            if (tabCounter >= MAX_TABS) {
+                alert('Limit to 7 scripts.');
+                return;
+            }
+
+           
+            const popup = document.getElementById('tabNamePopup');
+            const input = document.getElementById('tabNameInput');
+            popup.classList.remove('hidden');
+            input.value = ''; 
+            input.focus();
+
+            const cancelPopup = document.getElementById('cancelPopup');
+            const createTabButton = document.getElementById('createTab');
+
+           
+            cancelPopup.onclick = () => {
+                popup.classList.add('hidden');
+            };
+
+           
+            createTabButton.onclick = () => {
+                const name = input.value.trim() || `Script ${tabCounter + 1}`;
+                popup.classList.add('hidden');
+                createNamedTab(name);
+            };
+        }
+
+
+        function createNamedTab(name) {
+            tabCounter++;
+            const id = tabCounter;
+
+            const container = createEditorContainer(id);
+            const tab = document.createElement('div');
+            tab.className = 'tab-item';
+            tab.dataset.tabId = id;
+            tab.onclick = () => switchTab(id);
+
+            const tabIcon = document.createElement('div');
+            tabIcon.className = 'tab-icon';
+
+            const iconImage = document.createElement('img');
+            iconImage.src = 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Lua-Logo.svg';
+            iconImage.alt = 'Lua Icon';
+            tabIcon.appendChild(iconImage);
+
+            tab.appendChild(tabIcon);
+
+            const tabTitle = document.createElement('span');
+            tabTitle.className = 'tab-title';
+            tabTitle.textContent = `${name}.lua`;
+            tab.appendChild(tabTitle);
+
+            const closeTabButton = document.createElement('button');
+            closeTabButton.className = 'close-tab';
+            closeTabButton.innerHTML = '&times;';
+            closeTabButton.onclick = (e) => {
+                e.stopPropagation();
+                closeTab(id);
+            };
+            tab.appendChild(closeTabButton);
+
+            document.getElementById('tab-list').appendChild(tab);
+
+            const editor = monaco.editor.create(container, {
+                value: `-- Lua code for ${name}\nprint("UwU -DTB")\n`,
+                language: 'lua',
+                theme: 'CustomDark'
+            });
+
+            editors[id] = editor;
+            switchTab(id);
+
+            editor.onDidChangeModelContent(() => validateCode(editor, id));
+        }
+
+
+        function closeTab(id) {
+            const tab = document.querySelector(`.tab-item[data-tab-id="${id}"]`);
+            const container = document.getElementById(`editor${id}`);
+
+            if (tab) tab.remove();
+            if (container) container.remove();
+            editors[id]?.dispose();
+            delete editors[id];
+
+            tabCounter--;
+
+            saveTabs();
+
+            if (document.querySelector('.tab-item')) {
+                switchTab(document.querySelector('.tab-item').dataset.tabId);
+            }
+        }
+
+        function switchTab(id) {
+            const tabs = document.querySelectorAll('.tab-item');
+            const containers = document.querySelectorAll('.editor-container');
+
+            tabs.forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.tabId == id);
+            });
+
+            containers.forEach(container => {
+                container.classList.toggle('active', container.id === `editor${id}`);
+            });
+
+            if (editors[id]) {
+                editors[id].layout();
+            }
+        }
+
+        function saveTabs() {
+            const tabData = [];
+            for (const [id, editor] of Object.entries(editors)) {
+                tabData.push({
+                    id: id,
+                    value: editor.getValue()
+                });
+            }
+            localStorage.setItem('tabs', JSON.stringify(tabData));
+        }
+
+        function loadTabs() {
+            const savedTabs = JSON.parse(localStorage.getItem('tabs')) || [];
+            savedTabs.forEach(tab => {
+                addTab();
+                const editor = editors[tab.id];
+                if (editor) {
+                    editor.setValue(tab.value);
+                }
+            });
+        }
+
+        function validateCode(editor, id) {
+            const code = editor.getValue();
+            const diagnostics = [];
+            const lines = code.split('\n');
+            let ifCount = 1;
+
+            lines.forEach((line, index) => {
+
+                if (/^\s*if\b/.test(line)) ifCount++;
+                if (/^\s*end\b/.test(line)) ifCount--;
+
+
+                if (/^\s*\w+\s*=\s*[^=]/.test(line) && !line.includes('=') && line.indexOf('local ') === -1) {
+                    diagnostics.push({
+                        severity: monaco.MarkerSeverity.Error,
+                        message: 'Undefined variable.',
+                        startLineNumber: index + 1,
+                        startColumn: 1,
+                        endLineNumber: index + 1,
+                        endColumn: 1
+                    });
+                }
+            });
+
+
+            if (ifCount > 1) {
+                diagnostics.push({
+                    severity: monaco.MarkerSeverity.Error,
+                    message: 'Missing "end" for an "if" statement.',
+                    startLineNumber: lines.length,
+                    startColumn: 1,
+                    endLineNumber: lines.length,
+                    endColumn: 1
+                });
+            }
+
+            monaco.editor.setModelMarkers(editor.getModel(), `LuaErrors${id}`, diagnostics);
+        }
+
+    </script>
+</body>
+</html>
