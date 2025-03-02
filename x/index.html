@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DrevX</title>
+    <link rel="icon" href="https://drev.0x.no/favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet, red);
+            background-size: 400% 400%;
+            animation: gradientAnimation 10s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            color: white;
+            margin-bottom: 5px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: white;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            z-index: 1000;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .popup.active {
+            display: block;
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        .popup button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>DrevX</h1>
+        <h2>For Roblox</h2>
+        <div class="buttons">
+            <button onclick="showPopup('popup1', 'overlay1')">DrevX Executor (Auto-Updates)</button>
+            <button onclick="showPopup('popup2', 'overlay2')">DrevX Hub Loadstring</button>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay2"></div>
+    <div class="popup" id="popup2">
+        <p>DrevX Hub powered by 0x.no</p>
+        <p>Proceeding means you agree to the Terms of Service</p>
+        <button onclick="proceed('https://drev.0x.no/x/xlatest.txt')">Continue</button>
+        <button onclick="closePopup('popup2', 'overlay2')">Cancel</button>
+    </div>
+
+    <div class="overlay" id="overlay1"></div>
+    <div class="popup" id="popup1">
+        <p>DrevX Executor powered by Xeno</p>
+        <p>Proceeding means you agree to the Terms of Service</p>
+        <p>Lightning gives you the new DrevX experience with a modern user interface and uses CXAPI</p>
+        <p>Legacy gives you the old DrevX experience for older or lower end machines with the old user interface and uses ForlornAPI</p>
+        <button onclick="proceed('https://drev.0x.no/xl')">Lightning</button>
+        <button onclick="proceed('https://drev.0x.no/x/DrevX.exe')">Legacy</button>
+        <button onclick="closePopup('popup1', 'overlay1')">Cancel</button>
+    </div>
+
+    <script>
+        function showPopup(popupId, overlayId) {
+            document.getElementById(popupId).classList.add('active');
+            document.getElementById(overlayId).classList.add('active');
+        }
+
+        function closePopup(popupId, overlayId) {
+            document.getElementById(popupId).classList.remove('active');
+            document.getElementById(overlayId).classList.remove('active');
+        }
+
+        function proceed(link) {
+            window.open(link, "_blank");
+            document.querySelectorAll('.popup.active, .overlay.active').forEach(el => el.classList.remove('active'));
+        }
+    </script>
+</body>
+</html>
