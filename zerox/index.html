@@ -1,0 +1,52 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pterodactyl Signup</title>
+</head>
+<body>
+  <h2>Register</h2>
+  <form id="signup-form">
+    <input type="text" name="username" placeholder="Username" required /><br />
+    <input type="email" name="email" placeholder="Email" required /><br />
+    <input type="text" name="first_name" placeholder="First Name" required /><br />
+    <input type="text" name="last_name" placeholder="Last Name" required /><br />
+    <input type="password" name="password" placeholder="Password" required /><br />
+    <button type="submit">Sign Up</button>
+  </form>
+
+  <p id="response"></p>
+
+  <script>
+    const form = document.getElementById("signup-form");
+    const responseEl = document.getElementById("response");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      responseEl.textContent = "Registering...";
+
+      try {
+        const res = await fetch("https://backend.drev.0x.no", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+        responseEl.textContent = result.message || "Success!";
+      } catch (err) {
+        responseEl.textContent = "Failed to register. Try again.";
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>
