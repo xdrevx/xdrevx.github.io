@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Create Server</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+  <div class="bg-white p-8 rounded-xl shadow-md w-full max-w-lg">
+    <h2 class="text-2xl font-bold text-center mb-6">Create a Server Pterodactyl ZeroX</h2>
+    
+    <form id="server-form" class="space-y-4">
+      <input type="text" name="name" placeholder="Server Name" required class="w-full p-3 border rounded-lg" />
+      <input type="text" name="user_id" placeholder="User ID" required class="w-full p-3 border rounded-lg" />
+
+      <select id="nest-select" required class="w-full p-3 border rounded-lg">
+        <option value="">Select Nest</option>
+      </select>
+
+      <select id="egg-select" required class="w-full p-3 border rounded-lg">
+        <option value="">Select Egg</option>
+      </select>
+
+      <select id="node-select" required class="w-full p-3 border rounded-lg">
+        <option value="">Select Node</option>
+      </select>
+
+      <select id="allocation-select" required class="w-full p-3 border rounded-lg">
+        <option value="">Select Allocation</option>
+      </select>
+
+      <input type="number" name="ram" id="ram" placeholder="RAM (MB)" max="2048" required class="w-full p-3 border rounded-lg" />
+      <input type="number" name="disk" id="disk" placeholder="Disk (MB)" max="10240" required class="w-full p-3 border rounded-lg" />
+
+      <input type="number" name="cpu" id="cpu" placeholder="CPU (%)" required class="w-full p-3 border rounded-lg" />
+
+      <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700">Create Server</button>
+    </form>
+
+    <p id="response" class="text-center mt-4 text-sm text-gray-700"></p>
+  </div>
+
+  <script>
+    const nestSelect = document.getElementById("nest-select");
+    const eggSelect = document.getElementById("egg-select");
+    const nodeSelect = document.getElementById("node-select");
+    const allocationSelect = document.getElementById("allocation-select");
+    const form = document.getElementById("server-form");
+    const responseEl = document.getElementById("response");
+
+    let eggsById = {};
+    let nodesById = {};
+
+    // Load all nests
+    async function loadNests() {
+      const res = await fetch("https://backend.drev.0x.no/api/nests");
+      const data = await res.json();
+      data.data.forEach(nest => {
+        const opt = document.createElement("option");
+        opt.value = nest.attributes.id;
+        opt.textContent = nest.attributes.name;
+        nestSelect.appendChild(opt);
+      });
+    }
+
+    // Load eggs for a given nest
+    async function loadEggs(nestId) {
+      eggSelect.innerHTML = `<option value="">Select Egg</option>`;
+      const res = await fetch(`https://backend.drev.0x.no/api/nests/${nestId}/eggs`);
+      const data = await res.json();
+      data.data.forEach(egg => {
+        eggsById[egg.attributes.id] = egg.attributes; // store egg info
+        const opt = document.createElement("option");
+        opt.value = egg.attributes.id;
+        opt.textContent = egg.attributes.name;
+        eggSelect.appendChild(opt);
+      });
+    }
+
+    // Load all nodes
+    async function loadNodes() {
+      const res = await fetch("https://backend.drev.0x.no/api/nodes");
+      const data = await res.json();
+      data.data.forEach(node => {
+        const opt = document.createElement("option");
+        opt.value = node.attributes.id;
+        opt.textContent = node.attributes.name;
+        nodeSelect.appendChild(opt);
+      });
+    }
+
+    // Load allocations for a given node
+    async function loadAllocations(nodeId) {
+      allocationSelect.innerHTML = `<option value="">Select Allocation</option>`;
+      const res = await fetch(`https://backend.drev.0x.no/api/nodes/${nodeId}/allocations`);
+      const data = await res.json();
+      data.data.forEach(allocation => {
+        const opt = document.createElement("option");
+        opt.value = allocation.attributes.id;
+        opt.textContent = `IP: ${allocation.attributes.ip}, Port: ${allocation.attributes.port}`;
+        allocationSelect.appendChild(opt);
+      });
+    }
+
+    // Fetch eggs when nest is selected
+    nestSelect.addEventListener("change", e => {
+      if (e.target.value) {
+        loadEggs(e.target.value);
+      }
+    });
+
+    // Fetch allocations when node is selected
+    nodeSelect.addEventListener("change", e => {
+      if (e.target.value) {
+        loadAllocations(e.target.value);
+      }
+    });
+
+    // Form submission logic
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const data = Object.fromEntries(new FormData(form).entries());
+      const egg = eggsById[eggSelect.value];
+      const node = nodesById[nodeSelect.value];
+
+      if (!egg || !node) {
+        return alert("Please make sure all fields are filled out.");
+      }
+
+      const payload = {
+        name: data.name,
+        user_id: data.user_id,
+        ram: data.ram,
+        disk: data.disk,
+        cpu: data.cpu,
+        egg: egg.id,
+        nest: egg.nest,
+        docker_image: egg.docker_image,
+        startup: egg.startup,
+        environment: egg.environment || {},
+        node: node.id,
+        allocation: allocationSelect.value
+      };
+
+      responseEl.textContent = "Creating server...";
+
+      try {
+        const res = await fetch("https://backend.drev.0x.no/api/createserver", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await res.json();
+        responseEl.textContent = result.success
+          ? "✅ Server created!"
+          : "❌ Failed to create server.";
+      } catch (err) {
+        console.error(err);
+        responseEl.textContent = "❌ Error while creating server.";
+      }
+    });
+
+    // Initialize all dropdowns
+    loadNests();
+    loadNodes();
+  </script>
+</body>
+</html>
