@@ -32,7 +32,7 @@
       responseEl.textContent = "Registering...";
 
       try {
-        const res = await fetch("https://backend.drev.0x.no", {
+        const res = await fetch("https://backend.drev.0x.no/api/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
