@@ -1,23 +1,37 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pterodactyl Signup</title>
+  <title>Pterodactyl ZeroX Signup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <h2>Register</h2>
-  <form id="signup-form">
-    <input type="text" name="username" placeholder="Username" required /><br />
-    <input type="email" name="email" placeholder="Email" required /><br />
-    <input type="text" name="first_name" placeholder="First Name" required /><br />
-    <input type="text" name="last_name" placeholder="Last Name" required /><br />
-    <input type="password" name="password" placeholder="Password" required /><br />
-    <button type="submit">Sign Up</button>
-  </form>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <div class="bg-white shadow-xl rounded-xl p-8 w-full max-w-md">
+    <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Create Your Account</h2>
+    
+    <form id="signup-form" class="space-y-4">
+      <input type="text" name="username" placeholder="Username" required
+        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      
+      <input type="email" name="email" placeholder="Email" required
+        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      
+      <input type="text" name="first_name" placeholder="First Name" required
+        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      
+      <input type="text" name="last_name" placeholder="Last Name" required
+        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      
+      <input type="password" name="password" placeholder="Password" required
+        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      
+      <button type="submit"
+        class="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition">Sign Up</button>
+    </form>
 
-  <p id="response"></p>
+    <p id="response" class="text-center mt-4 text-sm text-gray-600"></p>
+  </div>
 
   <script>
     const form = document.getElementById("signup-form");
@@ -41,9 +55,9 @@
         });
 
         const result = await res.json();
-        responseEl.textContent = result.message || "Success!";
+        responseEl.textContent = result.message || "Registered successfully!";
       } catch (err) {
-        responseEl.textContent = "Failed to register. Try again.";
+        responseEl.textContent = "Failed to register. Please try again.";
         console.error(err);
       }
     });
