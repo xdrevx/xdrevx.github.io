@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smug Army</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Orbitron', sans-serif;
+    }
+    body {
+      background-color: #0f0f0f;
+      color: #fff;
+    }
+    header {
+      text-align: center;
+      padding: 20px;
+      background-color: #000;
+      border-bottom: 3px solid #fff;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rainbow 6s linear infinite;
+    }
+    @keyframes rainbow {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+    section {
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      border-left: 5px solid #fff;
+      padding-left: 10px;
+    }
+    .intro {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .intro p {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+      color: #ccc;
+    }
+    .group-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #00f0ff;
+      color: #000;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .group-btn:hover {
+      background-color: #66f8ff;
+    }
+    select {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      background-color: #1a1a1a;
+      color: #fff;
+      border: 1px solid #555;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .game-info {
+      display: none;
+      background-color: rgba(0, 0, 0, 0.6);
+      background-blend-mode: overlay;
+      background-size: cover;
+      background-position: center;
+      padding: 20px;
+      border-radius: 10px;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    .game-info h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rainbow 6s linear infinite;
+    }
+    .game-info a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #fff;
+      color: #000;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .game-info a:hover {
+      background-color: #ccc;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #aaa;
+      background-color: #111;
+      border-top: 1px solid #333;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Smug Army</h1>
+  </header>
+
+  <section>
+    <div class="intro">
+      <p>Welcome to the official Smug Army Game Hub. Select any game to view its description and play instantly. We’re always building more chaos!</p>
+      <a class="group-btn" href="https://www.roblox.com/communities/6294300">View Roblox Group</a>
+    </div>
+
+    <h2 class="section-title">Select a Game</h2>
+
+    <select id="gameSelect" onchange="showGameInfo()">
+      <option value="">-- Choose a game --</option>
+      <option value="gglol">Get Gunned LOL: Versus Everything</option>
+      <option value="nextbots">Drev's Nextbots</option>
+      <option value="arena">Drev's Arena</option>
+    </select>
+
+    <div id="gglol" class="game-info" style="background-image: url('https://tr.rbxcdn.com/180DAY-b34dbcecd906a5c24c47fbae536988c2/768/432/Image/Webp/noFilter');">
+      <h3>Get Gunned LOL: Versus Everything</h3>
+      <p>GET GUNNED LOL is a fast-paced, goofy, semi-cursed Gun Game where the only goal is to shoot first, think never.</p>
+      <a href="https://drev.0x.no/gglol" target="_blank">Play Game</a>
+    </div>
+
+    <div id="nextbots" class="game-info" style="background-image: url('https://tr.rbxcdn.com/180DAY-217f07622119207264841c4590459a11/768/432/Image/Webp/noFilter');">
+      <h3>Drev's Nextbots</h3>
+      <p>Nextbot type game. Made by Drevil. Inspired by Nico's Nextbots and Evade.</p>
+      <a href="https://www.roblox.com/games/13113662137/Drevs-Nextbots" target="_blank">Play Game</a>
+    </div>
+
+    <div id="arena" class="game-info" style="background-image: url('https://tr.rbxcdn.com/180DAY-ab358326d8cb5a8e39f65897c3ce4129/768/432/Image/Webp/noFilter');">
+      <h3>Drev's Arena</h3>
+      <p>A simple free-for-all arena game with weapons.</p>
+      <a href="https://www.roblox.com/games/15115835238/Drevs-Arena" target="_blank">Play Game</a>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Smug Army. Backed and developed by Drev.
+  </footer>
+
+  <script>
+    function showGameInfo() {
+      const games = document.querySelectorAll('.game-info');
+      games.forEach(game => game.style.display = 'none');
+
+      const selected = document.getElementById('gameSelect').value;
+      if (selected) {
+        document.getElementById(selected).style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>
