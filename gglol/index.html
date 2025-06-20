@@ -1,10 +1,162 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <script>
-        window.location.href = "https://www.roblox.com/games/117879441555437/Get-Gunned-LOL-Alpha";
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get Gunned LOL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Orbitron', sans-serif;
+    }
+    body {
+      background-color: #0f0f0f;
+      color: #fff;
+    }
+    header {
+      background-color: #000;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 2px solid #00bfff;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      color: #00bfff;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #1a1a1a;
+      padding: 10px;
+      border-bottom: 1px solid #333;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 1.1rem;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #00bfff;
+    }
+    section {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      border-left: 5px solid #00bfff;
+      padding-left: 10px;
+    }
+    .news, .updates, .store {
+      background-color: #1a1a1a;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .news h3, .updates h3, .store h3 {
+      color: #00bfff;
+      margin-bottom: 10px;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #111;
+      color: #aaa;
+      border-top: 1px solid #333;
+    }
+    .play-section {
+      background: url('https://tr.rbxcdn.com/180DAY-b34dbcecd906a5c24c47fbae536988c2/768/432/Image/Webp/noFilter') no-repeat center center/cover;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .play-section button {
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      background-color: #00bfff;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .play-section button:hover {
+      background-color: #0099e6;
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>GET GUNNED LOL</h1>
+  </header>
+  <nav>
+    <a href="#play">Play</a>
+    <a href="#news">News</a>
+    <a href="#updates">Updates</a>
+    <a href="#store">Store</a>
+  </nav>
+
+  <section id="play" class="play-section">
+    <button onclick="window.open('https://www.roblox.com/games/117879441555437/Get-Gunned-LOL-Versus-Everything', '_blank')">Play Now</button>
+  </section>
+
+  <section id="news">
+    <h2 class="section-title">Latest News</h2>
+    <div class="news">
+      <h3>🧟 Versus Everything Update Released</h3>
+      <p>New modes, weapons, play styles, QOL updates and many more!</p>
+    </div>
+    <div class="news">
+      <h3>🩸 Blood & Banter Update Released</h3>
+      <p>New melee weapons, improved effects, and more! Jump in and see what's new.</p>
+    </div>
+  </section>
+
+  <section id="updates">
+    <h2 class="section-title">Game Updates</h2>
+    <div class="updates">
+      <h3>Patch 1.22-patch1</h3>
+      <ul>
+        <li>🧟‍♂️ Versus Everything Event Theme Added</li>
+        <li>🧨 Three new game modes</li>
+        <li>🎯 New maps</li>
+        <li>🥰 Ads in Lobby</li>
+      </ul>
+    </div>
+    <div class="updates">
+      <h3>Patch 1.21-patch8</h3>
+      <ul>
+        <li>💀 Death screen overhaul</li>
+        <li>🔫 Improved weapon feel</li>
+        <li>🧠 Challenge: Hit 100 kills!</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="store">
+    <h2 class="section-title">Store</h2>
+    <div class="store">
+      <h3>VIP Pass</h3>
+      <p>Get exclusive skins, custom chat tags, and early access to new weapons. <a href="https://www.roblox.com/game-pass/1251498877" style="color:#00bfff;">Buy Now</a></p>
+    </div>
+    <div class="store">
+      <h3>Blood Pack</h3>
+      <p>Unlock gore effects, brutal finishers, and more. <a href="https://www.roblox.com/game-pass/YOUR_PASS_ID2" style="color:#00bfff;">Get It</a></p>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Get Gunned LOL. Not affiliated with Roblox or Rockstar Games.
+  </footer>
 </body>
 </html>
